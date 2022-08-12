@@ -21,8 +21,8 @@ public class UserDaoJDBCImpl implements UserDao {
                 "lastName VARCHAR(30) NOT NULL, " +
                 "age SMALLINT NOT NULL)";
 
-        try (Statement statement = Util.getConnection().createStatement()) {
-            statement.executeUpdate(sql);
+        try (PreparedStatement prepareStatement = Util.getConnection().prepareStatement(sql)) {
+            prepareStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,8 +31,8 @@ public class UserDaoJDBCImpl implements UserDao {
     public void dropUsersTable() {
         String sql = "DROP TABLE IF EXISTS Users";
 
-        try (Statement statement = Util.getConnection().createStatement()) {
-            statement.executeUpdate(sql);
+        try (PreparedStatement prepareStatement = Util.getConnection().prepareStatement(sql)) {
+            prepareStatement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,8 +67,8 @@ public class UserDaoJDBCImpl implements UserDao {
 
         String sql = "SELECT * FROM Users";
 
-        try (Statement statement = Util.getConnection().createStatement()) {
-            ResultSet resultSet = statement.executeQuery(sql);
+        try (PreparedStatement prepareStatement = Util.getConnection().prepareStatement(sql)) {
+            ResultSet resultSet = prepareStatement.executeQuery();
 
             while (resultSet.next()) {
                 User user = new User();
